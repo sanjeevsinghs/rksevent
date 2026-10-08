@@ -4,7 +4,12 @@ import 'router/app_router.dart';
 import 'theme/app_theme.dart';
 
 class RksEventApp extends StatelessWidget {
-  const RksEventApp({super.key});
+  final String initialLocation;
+
+  const RksEventApp({
+    super.key,
+    this.initialLocation = '/',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class RksEventApp extends StatelessWidget {
       title: 'RKS Events',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      routerConfig: appRouter,
+      routerConfig: createAppRouter(initialLocation: initialLocation),
     );
   }
 }

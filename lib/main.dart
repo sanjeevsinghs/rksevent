@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'app/app_start.dart';
 import 'core/device/device_info_service.dart';
 import 'features/home/cubit/home_cubit.dart';
-import 'app/app.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -18,7 +19,7 @@ void main() {
           create: (_) => HomeCubit(
             DeviceInfoService(),
           )..loadDeviceInfo(),
-          child: const RksEventApp(),
+          child: const AppStart(),
         );
       },
     ),

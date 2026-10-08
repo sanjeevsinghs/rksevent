@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../services/onboarding_service.dart';
-import '../features/onboarding/pages/onboarding_page.dart';
-import '../app/app.dart';
+
+import '../services/onboarding_service.dart';
+import 'app.dart';
 
 class AppStart extends StatefulWidget {
   const AppStart({super.key});
@@ -25,14 +25,16 @@ class _AppStartState extends State<AppStart> {
     final result = await _onboardingService.isOnboardingSeen();
 
     if (!mounted) return;
-      setState(() {
-        _isOnboardingSeen = result;
-      });
+
+    setState(() {
+      _isOnboardingSeen = result;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isOnboardingSeen == null) {
+    final isOnboardingSeen = _isOnboardingSeen;
+    if (isOnboardingSeen == null) {
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
@@ -40,17 +42,8 @@ class _AppStartState extends State<AppStart> {
       );
     }
 
-
-  return MaterialApp(
-  debugShowCheckedModeBanner: false,
-  home: _isOnboardingSeen == false
-      ? const OnboardingPage()
-      : const OnboardingPage(),
-);
-  //   if (_isOnboardingSeen == false) {
-  //     return const OnboardingPage();
-  //   } else {
-  //     return RksEventApp();
-  //   }
+    return RksEventApp(
+      initialLocation: isOnboardingSeen ? '/' : '/onboarding',
+    );
   }
 }

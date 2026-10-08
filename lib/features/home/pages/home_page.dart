@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/theme/app_colors.dart';
 import '../../../core/responsive/responsiv.dart';
+import '../../../shared/widgets/responsive_container.dart';
 import '../cubit/home_cubit.dart';
 // import '../widgets/category_card.dart';
 import '../widgets/hero_section.dart';
 import '../widgets/royal_suite_section.dart';
-import '../../../core/responsive/responsive_container.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
