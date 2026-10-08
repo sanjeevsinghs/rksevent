@@ -37,30 +37,48 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:rksevent/app/app.dart';
+import 'package:rksevent/app/app_start.dart';
 import 'package:rksevent/core/device/device_info_service.dart';
 import 'package:rksevent/features/home/cubit/home_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  testWidgets('RKS Events home page displays correctly', (
-    WidgetTester tester,
-  ) async {
+  Future<void> pumpApp(WidgetTester tester) async {
     await tester.pumpWidget(
       ScreenUtilInit(
         designSize: const Size(390, 844),
         builder: (context, child) {
           return BlocProvider(
             create: (_) => HomeCubit(DeviceInfoService()),
-            child: RksEventApp(),
+            child: const AppStart(),
           );
         },
       ),
     );
+  }
+
+  testWidgets('shows onboarding flow when onboarding is not seen', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    await pumpApp(tester);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Discover Amazing Events'), findsOneWidget);
+    expect(find.text('RKS EVENTS'), findsNothing);
+  });
+
+  testWidgets('shows home page when onboarding is already seen', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      'onbording_seen': true,
+    });
+    await pumpApp(tester);
 
     await tester.pumpAndSettle();
 
     expect(find.text('RKS EVENTS'), findsOneWidget);
-    expect(find.text('THE ROYAL SUITE'), findsOneWidget);
-    expect(find.text('Everything For Your'), findsOneWidget);
+    expect(find.text('Discover Amazing Events'), findsNothing);
   });
 }
