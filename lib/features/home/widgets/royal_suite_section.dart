@@ -15,13 +15,15 @@ class RoyalSuiteSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final categories = [
       const CategoryCard(
-        title: 'Vendors',
+        text: '120+ CURATED',
+        title: 'ARTISANS & GUILDS',
         subtitle: 'Master cinematographers, Michelin-starred royal caterers, and specialists.',
         buttonText: 'View Specialists',
         imagePath: 'assets/images/vendar.png',
         icon: Icons.camera_alt_outlined,
       ),
       const CategoryCard(
+        text: '120+ CURATED',
         title: 'Venues',
         subtitle: 'Centuries-old palaces and beautiful locations for your celebration.',
         buttonText: 'Explore Palaces',
@@ -29,6 +31,7 @@ class RoyalSuiteSection extends StatelessWidget {
         icon: Icons.account_balance_outlined,
       ),
       const CategoryCard(
+        text: '120+ CURATED',
         title: 'Planning',
         subtitle: 'Organize every elegant detail of your special celebration.',
         buttonText: 'Start Planning',
@@ -62,7 +65,7 @@ class RoyalSuiteSection extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        separatorBuilder: (_, __) => SizedBox(width: 16.w),
+        separatorBuilder: (_, _) => SizedBox(width: 16.w),
         itemBuilder: (context, index) {
           return SizedBox(
             width: 280.w,

@@ -7,15 +7,47 @@ import '../../features/home/pages/home_page.dart';
 import '../../features/planning/planning_page.dart';
 import '../../features/profile/profile_page.dart';
 import '../../features/shared/widgets/app_bottom_navigation.dart';
+import '../../services/onboarding_service.dart';
+import '../../features/onboarding/pages/onboarding_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
+
+  redirect: (context, state) async {
+    // Add any redirection logic here if needed
+    final isOnboardingSeen = await OnboardingService().isOnboardingSeen();
+  final isOnboardingPage = state.matchedLocation == '/onboarding';
+
+  if (!isOnboardingSeen && !isOnboardingPage) {
+      return '/onboarding';
+    }
+
+  if (isOnboardingSeen && isOnboardingPage) {
+      return '/';
+    }
+
+
+    return null;
+  },
+
+
   routes: [
+
+    GoRoute(
+      path: '/onboarding',
+      name: 'onboarding',
+      builder: (context, state) {
+        return const OnboardingPage();
+      },
+    ),
+  
     ShellRoute(
       builder: (context, state, child) {
         return AppNavigationShell(child: child);
       },
       routes: [
+
+      
         GoRoute(
           path: '/',
           name: 'home',

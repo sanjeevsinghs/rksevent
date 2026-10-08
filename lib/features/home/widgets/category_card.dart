@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../app/theme/app_colors.dart';
 
 class CategoryCard extends StatelessWidget {
+  final String text;
   final String title;
   final String subtitle;
   final String buttonText;
@@ -17,6 +18,7 @@ class CategoryCard extends StatelessWidget {
     required this.buttonText,
     required this.imagePath,
     required this.icon,
+    required this.text,
   });
 
   @override
@@ -25,9 +27,7 @@ class CategoryCard extends StatelessWidget {
       elevation: 0,
       color: Colors.white,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.r),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,10 +36,7 @@ class CategoryCard extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                ),
+                Image.asset(imagePath, fit: BoxFit.cover),
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -49,6 +46,34 @@ class CategoryCard extends StatelessWidget {
                         Colors.transparent,
                         AppColors.darkWine.withValues(alpha: 0.75),
                       ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 20,
+                  left: 20,
+                  child: Container(
+                    height: 24.h,
+                    width: 100.w,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 1.w,
+                      vertical: 2.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.gold.withValues(alpha: 0.9),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        text.toUpperCase(),
+                        style: TextStyle(
+                          fontFamily: 'Plus_Jakarta_Sans',
+                          color: AppColors.wine,
+                          fontSize: 9.sp,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -69,10 +94,7 @@ class CategoryCard extends StatelessWidget {
                 Positioned(
                   right: 12.w,
                   bottom: 10.h,
-                  child: Icon(
-                    icon,
-                    color: AppColors.gold,
-                  ),
+                  child: Icon(icon, color: AppColors.gold),
                 ),
               ],
             ),
